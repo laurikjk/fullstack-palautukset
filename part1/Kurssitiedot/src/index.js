@@ -36,7 +36,7 @@ const App = () => {
     )
   
   }
-  
+  // :D
   const Content = (props) => {
     
     return(
@@ -44,7 +44,7 @@ const App = () => {
         <Part part={props.parts[0]}/>
         <Part part={props.parts[1]}/>
         <Part part={props.parts[2]}/>
-      </>
+      </> 
     )
   
   }
