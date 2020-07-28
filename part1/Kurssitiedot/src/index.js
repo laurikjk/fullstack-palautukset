@@ -36,7 +36,7 @@ const App = () => {
     )
   
   }
-  // :D
+  
   const Content = (props) => {
     
     return(
