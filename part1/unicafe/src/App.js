@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+
+
 const App = () => {
   // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
@@ -18,8 +20,18 @@ const App = () => {
   )
 
   const Counter = ({ state, text }) => (
-  <p>{text} {state} </p>
+    <p>{text} {state} </p>
   )
+
+  const Percent = ({ percent, text }) => (
+    <p>{text} {percent} % </p>
+  )
+
+  const average = (good - bad) / (good + neutral + bad)
+  const positive = (good / (good + bad + neutral)) * 100
+  const all = good + bad + neutral
+  
+  
 
   return (
     <div>
@@ -34,6 +46,10 @@ const App = () => {
       <Counter state = {good} text = {'good '}/>
       <Counter state = {neutral} text = {'neutral'}/>
       <Counter state = {bad} text = {'bad'}/>
+      <Counter state = {all} text = {'all'}/>
+      <Counter state = {average} text = {'average'}/>
+      <Percent percent = {positive} text = {'positive'}/> 
+      
       
 
     </div>
