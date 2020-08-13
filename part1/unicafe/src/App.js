@@ -10,19 +10,27 @@ const Statistics = (props) => {
   const Percent = ({ percent, text }) => (
     <p>{text} {percent} % </p>
   )
-  return(
-    <div>
-      <h1>statistics</h1>
-      <Counter state = {props.good} text = {'good '}/>
-      <Counter state = {props.neutral} text = {'neutral'}/>
-      <Counter state = {props.bad} text = {'bad'}/>
-      <Counter state = {props.all} text = {'all'}/>
-      <Counter state = {props.average} text = {'average'}/>
-      <Percent percent = {props.positive} text = {'positive'}/> 
-    </div>
-  )
+  if (props.all===0) {
+    return(
+      <div>
+        <p>No feedback given</p>
+      </div>
+    )
+  }
+  else {
+    return(
+      <div>
+        <h1>statistics</h1>
+        <Counter state = {props.good} text = {'good '}/>
+        <Counter state = {props.neutral} text = {'neutral'}/>
+        <Counter state = {props.bad} text = {'bad'}/>
+        <Counter state = {props.all} text = {'all'}/>
+        <Counter state = {props.average} text = {'average'}/>
+        <Percent percent = {props.positive} text = {'positive'}/> 
+      </div>
+    )
+  }
 }
-
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>
     {text}
