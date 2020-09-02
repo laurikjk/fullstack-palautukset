@@ -2,14 +2,33 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 
-const Statistics = (props) => {
-  const Counter = ({ state, text }) => (
-    <p>{text} {state} </p>
+const StatisticLine = (props) => {
+  
+  if (props.percent === true) {
+    return(
+      <p>{props.text} {props.value} %</p>
+    )
+  }
+
+  return(
+    <p>{props.text} {props.value}</p>
   )
+
+}
+
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>
+    {text}
+  </button>
+)
+
+
+const Statistics = (props) => {
 
   const Percent = ({ percent, text }) => (
     <p>{text} {percent} % </p>
   )
+  
   if (props.all===0) {
     return(
       <div>
@@ -17,25 +36,21 @@ const Statistics = (props) => {
       </div>
     )
   }
+
   else {
     return(
       <div>
         <h1>statistics</h1>
-        <Counter state = {props.good} text = {'good '}/>
-        <Counter state = {props.neutral} text = {'neutral'}/>
-        <Counter state = {props.bad} text = {'bad'}/>
-        <Counter state = {props.all} text = {'all'}/>
-        <Counter state = {props.average} text = {'average'}/>
-        <Percent percent = {props.positive} text = {'positive'}/> 
+        <StatisticLine value = {props.good} text = {'good '}/>
+        <StatisticLine value = {props.neutral} text = {'neutral'}/>
+        <StatisticLine value = {props.bad} text = {'bad'}/>
+        <StatisticLine value = {props.all} text = {'all'}/>
+        <StatisticLine value = {props.average} text = {'average'}/>
+        <StatisticLine value = {props.positive} text = {'positive'} percent = {true}/> 
       </div>
     )
   }
 }
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>
-    {text}
-  </button>
-)
 
 const App = () => {
   // tallenna napit omaan tilaansa
