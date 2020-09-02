@@ -3,16 +3,20 @@ import ReactDOM from 'react-dom'
 
 
 const StatisticLine = (props) => {
-  
+
   if (props.percent === true) {
     return(
-      <p>{props.text} {props.value} %</p>
+      <tr>
+        <td>{props.text} {props.value} %</td>
+      </tr>
+    )
+  } else {
+    return(
+      <tr>
+        <td>{props.text} {props.value}</td>
+      </tr>
     )
   }
-
-  return(
-    <p>{props.text} {props.value}</p>
-  )
 
 }
 
@@ -41,12 +45,16 @@ const Statistics = (props) => {
     return(
       <div>
         <h1>statistics</h1>
-        <StatisticLine value = {props.good} text = {'good '}/>
-        <StatisticLine value = {props.neutral} text = {'neutral'}/>
-        <StatisticLine value = {props.bad} text = {'bad'}/>
-        <StatisticLine value = {props.all} text = {'all'}/>
-        <StatisticLine value = {props.average} text = {'average'}/>
-        <StatisticLine value = {props.positive} text = {'positive'} percent = {true}/> 
+        <table>
+          <tbody>
+          <StatisticLine value = {props.good} text = {'good'}/>
+          <StatisticLine value = {props.neutral} text = {'neutral'}/>
+          <StatisticLine value = {props.bad} text = {'bad'}/>
+          <StatisticLine value = {props.all} text = {'all'}/>
+          <StatisticLine value = {props.average} text = {'average'}/>
+          <StatisticLine value = {props.positive} text = {'positive'} percent = {true}/> 
+          </tbody>
+        </table>
       </div>
     )
   }
