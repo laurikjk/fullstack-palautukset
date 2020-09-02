@@ -5,25 +5,39 @@ import './App.css';
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   const randomState = () => setSelected(Math.floor(Math.random() * 6))
+  const votes = new Uint8Array(anecdotes.length)
+  const copy = votes
+  const addVote = () => (
+    copy[selected]+=1
+  )
 
   return (
     <div>
       <p>
         {props.anecdotes[selected]}
+        <Votes votes ={votes[selected]}/>
       </p>
       <p>
         <Button handleClick = {randomState} text = {'next anecdote'}/>
+        <Button handleClick = {addVote} text = {'vote'}/>
       </p>
       
     </div>
   )
 }
 
+const Votes = (props) => (
+  <p>
+    has {props.votes} votes
+  </p>
+)
+
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>
     {text}
   </button>
 )
+
 
 const anecdotes = [
   'If it hurts, do it more often',
