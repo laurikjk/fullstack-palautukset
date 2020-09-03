@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom'
 
 
 const Course = ({course}) => {
-
+  const reducer = (accumulator, currentValue) => accumulator + currentValue.exercises
+  const total = course.parts.reduce(reducer, 0)
   return(
     <div>
     <h1>{course.name}</h1>
@@ -14,6 +15,7 @@ const Course = ({course}) => {
           </li>
         )}
       </ul>
+      <b>total of {total} exercises</b>
     </div>
   )
 }
@@ -41,7 +43,7 @@ const App = () => {
       },
       {
         name: 'Testiosa',
-        exercises: 420,
+        exercises: 1,
         id: 666
       }
     ]
@@ -53,9 +55,5 @@ const App = () => {
     </div>
   )
 }
-
-
-
-
 
 ReactDOM.render(<App />, document.getElementById('root'))
