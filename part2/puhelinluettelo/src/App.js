@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Person from './components/Person'
 
 const App = () => {
-  
+
   const [ persons, setPersons ] = useState([
     { id: 1,
       name: 'Arto Hellas' }
@@ -23,16 +23,26 @@ const App = () => {
       name: newName
     }
 
-    // !! concat so that the state isn't updated directly
-    // !! concat creates a new table with the new obj and then copies
-    setPersons(persons.concat(personObj))
-
+    //check if name alrady exists
+    let testi = false
+    persons.forEach(person => {
+        if(person.name === personObj.name) {
+          testi = true
+        }
+      }
+    )
+    //conditions base on if name existed
+    if (testi===true){
+      alert(`${newName} is already added to phonebook`)
+    } else {
+      setPersons(persons.concat(personObj)) // !! concat so that the state isn't updated directly
+    }
     //reset the form
     setNewName('')
 
     console.log('clikedi', event.target)
+  
   }
-
   const handleNoteChange = (event) => {
     console.log('handleri', event.target.value)
     setNewName(event.target.value) //keeps track of the text on the form
