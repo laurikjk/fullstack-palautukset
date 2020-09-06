@@ -10,6 +10,7 @@ const App = () => {
   ]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  const [ newFilter, setNewFilter ] = useState('')
 
   
 
@@ -46,6 +47,11 @@ const App = () => {
     console.log('clikedi', event.target)
   
   }
+
+  const personsToShow = (newFilter === '')
+    ? persons
+    : persons.filter(person => person.name.toLowerCase().includes(newFilter))
+
   const handleNameChange = (event) => {
     console.log('handleri', event.target.value)
     setNewName(event.target.value) //keeps track of the text on the form
@@ -55,10 +61,24 @@ const App = () => {
     console.log('handleri 2', event.target.value)
     setNewNumber(event.target.value)
   }
+  const handleFilterChange = (event) => {
+    setNewFilter(event.target.value)
+  }
 
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <form>
+        <div>
+          filter shown with <input
+                              value={newFilter}
+                              onChange={handleFilterChange}
+          />
+        </div>
+      </form>
+
+      <h3>add a new</h3>
       <form onSubmit={addName}>
         <div>
           name: <input 
@@ -78,7 +98,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>
-        {persons.map(person =>
+        {personsToShow.map(person =>
           <li key={person.id}>
             <Person name={person.name} number={person.number}/>
           </li>
