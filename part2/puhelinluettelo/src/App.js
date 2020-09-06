@@ -80,7 +80,7 @@ const App = () => {
       <ul>
         {persons.map(person =>
           <li key={person.id}>
-            <Person name={person.name}/>
+            <Person name={person.name} number={person.number}/>
           </li>
           
         )}
