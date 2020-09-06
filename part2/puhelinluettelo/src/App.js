@@ -5,10 +5,11 @@ const App = () => {
 
   const [ persons, setPersons ] = useState([
     { id: 1,
-      name: 'Arto Hellas' }
+      name: 'Arto Hellas',
+      number: 420 }
   ]) 
   const [ newName, setNewName ] = useState('')
-  const [ showAll, setShowAll ] = useState(true)
+  const [ newNumber, setNewNumber ] = useState('')
 
   
 
@@ -20,7 +21,8 @@ const App = () => {
     //create a person object which is added to persons on submit
     const personObj ={
       id: persons.length +1,
-      name: newName
+      name: newName,
+      number: newNumber
     }
 
     //check if name alrady exists
@@ -39,13 +41,19 @@ const App = () => {
     }
     //reset the form
     setNewName('')
+    setNewNumber('')
 
     console.log('clikedi', event.target)
   
   }
-  const handleNoteChange = (event) => {
+  const handleNameChange = (event) => {
     console.log('handleri', event.target.value)
     setNewName(event.target.value) //keeps track of the text on the form
+  }
+
+  const handleNumberChange = (event) => {
+    console.log('handleri 2', event.target.value)
+    setNewNumber(event.target.value)
   }
 
   return (
@@ -55,7 +63,13 @@ const App = () => {
         <div>
           name: <input 
                     value={newName}
-                    onChange={handleNoteChange}    
+                    onChange={handleNameChange}    
+                />
+        </div>
+        <div>
+          number: <input 
+                    value={newNumber}
+                    onChange={handleNumberChange}    
                 />
         </div>
         <div>
