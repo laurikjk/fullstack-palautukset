@@ -1,2 +1,2 @@
-# FullStack--palautusrepositorio
+# FullStack
 Full Stack -kurssin palautukset
