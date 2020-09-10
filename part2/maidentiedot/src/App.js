@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios'
 
-const CountriesToShow = ({countries, newName}) => { 
-  let c = countries.filter(country => country.name.toLowerCase().includes(newName))
+const CountriesToShow = ({countries, newName, handleClick}) => { 
+  let c = countries.filter(country => country.name.toLowerCase().includes(newName.toLowerCase()))
   let n = c.length
 
   if (n >= 10) {
@@ -38,7 +38,8 @@ const CountriesToShow = ({countries, newName}) => {
       <ul>
         {c.map(country=>
           <li key={country.name}>
-            {country.name}
+            {country.name} 
+            <button onClick={() => handleClick(country.name)}> show </button>
           </li>
           )}
       </ul>
@@ -57,6 +58,10 @@ function App() {
 
   const handleNameChange = (event) => {
     setNewName(event.target.value) //keeps track of the text on the form
+  }
+
+  const handleClick = (e) => {
+    setNewName(e)
   }
 
   const hook = () => {
@@ -80,7 +85,7 @@ function App() {
         value={newName}
         onChange={handleNameChange}    
       />
-      <CountriesToShow countries={countries} newName={newName}/>
+      <CountriesToShow countries={countries} newName={newName} handleClick={handleClick}/>
     </div>
   );
 }
