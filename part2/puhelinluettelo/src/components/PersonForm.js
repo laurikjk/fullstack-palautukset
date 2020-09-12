@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 
 
@@ -11,7 +12,6 @@ const PersonForm = (props) =>{
     
         //create a person object which is added to persons on submit
         const personObj ={
-          id: props.persons.length +1,
           name: props.newName,
           number: props.newNumber
         }
@@ -28,11 +28,19 @@ const PersonForm = (props) =>{
         if (testi===true){
           alert(`${props.newName} is already added to phonebook`)
         } else {
-          props.setPersons(props.persons.concat(personObj)) // !! concat so that the state isn't updated directly
+          axios
+          .post('http://localhost:3001/persons', personObj)
+          .then(response => {
+            console.log(response)
+            props.setPersons(props.persons.concat(response.data))
+          })
         }
+
+        
         //reset the form
         props.setNewName('')
         props.setNewNumber('')
+  
     
         console.log('clikedi', event.target)
       
