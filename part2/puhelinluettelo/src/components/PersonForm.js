@@ -33,12 +33,20 @@ const PersonForm = (props) =>{
           .then(returnedPerson => {
             props.setPersons(props.persons.concat(returnedPerson))
           })
+
+          personService
+            .getAll()
+            .then(response => {
+              props.setPersons(response)
+              props.setShow(response)
+          })
         }
 
         
         //reset the form
         props.setNewName('')
         props.setNewNumber('')
+        
   
     
         console.log('clikedi', event.target)

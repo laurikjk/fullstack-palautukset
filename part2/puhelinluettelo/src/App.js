@@ -6,31 +6,41 @@ import personService from './services/personService'
 
 const App = () => {
   
-  const [ persons, setPersons ] = useState([
-    { id: 1,
-      name: 'Arto Hellas',
-      number: 420 }
-  ]) 
-
+  const [ persons, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
-
-  const personsToShow = (newFilter === '')
-    ? persons
-    : persons.filter(person => person.name.toLowerCase().includes(newFilter))
+  const [ show, setShow ] = useState([])
 
   const handleNameChange = (event) => {
-    console.log('handleri', event.target.value)
     setNewName(event.target.value) //keeps track of the text on the form
   }
 
   const handleNumberChange = (event) => {
-    console.log('handleri 2', event.target.value)
     setNewNumber(event.target.value)
   }
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value)
+    (newFilter === '')
+    ? setShow(persons)
+    : setShow(persons.filter(person => person.name.toLowerCase().includes(newFilter)))
+  }
+  const handleDelete = (id, name) => {
+    if(window.confirm(`Delete "${name}"?`)){
+    personService
+      .deleteById(id)
+      .then(response => {
+        console.log('after delete responde: ', response)
+        
+      })
+
+    personService
+      .getAll()
+      .then(response => {
+          setPersons(response)
+          setShow(response)
+      })
+    }
   }
 
   useEffect(() => {
@@ -39,6 +49,7 @@ const App = () => {
       .then(response => {
         console.log('response', response)
         setPersons(response)
+        setShow(response)
       })
   }, [])
 
@@ -58,10 +69,11 @@ const App = () => {
                   setNewNumber={setNewNumber}
                   setPersons={setPersons}
                   persons={persons}
+                  setShow={setShow}
       />
 
       <h2>Numbers</h2>
-        <Numbers personsToShow={personsToShow}/>
+        <Numbers personsToShow={show} handler={handleDelete}/>
     </div>
   )
 
