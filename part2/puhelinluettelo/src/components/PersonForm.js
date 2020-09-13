@@ -1,4 +1,4 @@
-import axios from 'axios'
+import personService from '../services/personService'
 import React from 'react'
 
 
@@ -28,11 +28,10 @@ const PersonForm = (props) =>{
         if (testi===true){
           alert(`${props.newName} is already added to phonebook`)
         } else {
-          axios
-          .post('http://localhost:3001/persons', personObj)
-          .then(response => {
-            console.log(response)
-            props.setPersons(props.persons.concat(response.data))
+          personService
+          .create(personObj)
+          .then(returnedPerson => {
+            props.setPersons(props.persons.concat(returnedPerson))
           })
         }
 
