@@ -18,30 +18,36 @@ const PersonForm = (props) =>{
     
         //check if name alrady exists
         let testi = false
+        let id = 0
         props.persons.forEach(person => {
             if(person.name === personObj.name) {
               testi = true
+              id = person.id
             }
           }
         )
         //conditions base on if name existed
-        if (testi===true){
-          alert(`${props.newName} is already added to phonebook`)
-        } else {
+        if (testi===true &&
+          window.confirm(`${props.newName} is already added to phonebook, replace the old number with a new one?`)){
+          
+          personService
+            .update(id, personObj)
+            .then(response =>
+              console.log(response))
+        } else if (testi!==true){
           personService
           .create(personObj)
           .then(returnedPerson => {
             props.setPersons(props.persons.concat(returnedPerson))
           })
+        }
 
-          personService
+        personService
             .getAll()
             .then(response => {
               props.setPersons(response)
               props.setShow(response)
           })
-        }
-
         
         //reset the form
         props.setNewName('')
