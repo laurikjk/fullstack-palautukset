@@ -34,12 +34,24 @@ const PersonForm = (props) =>{
             .update(id, personObj)
             .then(response =>
               console.log(response))
+
+              props.setMessage(`Changed the number of ${personObj.name} to ${personObj.number}`)
+              setTimeout(() => {
+                props.setMessage(null)
+              }, 5000)
+
+          
+
         } else if (testi!==true){
           personService
           .create(personObj)
           .then(returnedPerson => {
             props.setPersons(props.persons.concat(returnedPerson))
-          })
+           })
+          props.setMessage(`Added ${personObj.name}`)
+          setTimeout(() => {
+            props.setMessage(null)
+          }, 5000)
         }
 
         personService

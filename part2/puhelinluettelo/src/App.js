@@ -3,6 +3,8 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Numbers from './components/Numbers'
 import personService from './services/personService'
+import Notification from './components/Notification'
+import './index.css';
 
 const App = () => {
   
@@ -11,6 +13,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
   const [ show, setShow ] = useState([])
+  const [ message, setMessage] = useState(null)
 
   const handleNameChange = (event) => {
     setNewName(event.target.value) //keeps track of the text on the form
@@ -41,6 +44,10 @@ const App = () => {
           setShow(response)
       })
     }
+    setMessage(`Deleted ${name}`)
+    setTimeout(() =>{
+      setMessage(null)
+    }, 5000)
   }
 
   useEffect(() => {
@@ -57,6 +64,8 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
+      <Notification message={message}/>
+
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange}/>
 
       <h3>add a new</h3>
@@ -70,6 +79,7 @@ const App = () => {
                   setPersons={setPersons}
                   persons={persons}
                   setShow={setShow}
+                  setMessage={setMessage}
       />
 
       <h2>Numbers</h2>
