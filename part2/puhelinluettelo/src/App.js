@@ -4,7 +4,6 @@ import PersonForm from './components/PersonForm'
 import Numbers from './components/Numbers'
 import personService from './services/personService'
 import Notification from './components/Notification'
-import './index.css';
 
 const App = () => {
   
@@ -14,6 +13,7 @@ const App = () => {
   const [ newFilter, setNewFilter ] = useState('')
   const [ show, setShow ] = useState([])
   const [ message, setMessage] = useState(null)
+  const [ errorMessage, setErrorMessage] = useState(null)
 
   const handleNameChange = (event) => {
     setNewName(event.target.value) //keeps track of the text on the form
@@ -29,12 +29,19 @@ const App = () => {
     : setShow(persons.filter(person => person.name.toLowerCase().includes(newFilter)))
   }
   const handleDelete = (id, name) => {
+
     if(window.confirm(`Delete "${name}"?`)){
     personService
       .deleteById(id)
       .then(response => {
         console.log('after delete responde: ', response)
         
+      })
+      .catch(error => {
+        setErrorMessage(`${name} was already deleted`)
+        setTimeout(() =>{
+          setErrorMessage(null)
+        }, 5000)
       })
 
     personService
@@ -44,10 +51,7 @@ const App = () => {
           setShow(response)
       })
     }
-    setMessage(`Deleted ${name}`)
-    setTimeout(() =>{
-      setMessage(null)
-    }, 5000)
+    
   }
 
   useEffect(() => {
@@ -64,7 +68,9 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={message}/>
+      <Notification message={message} type='message'/>
+      <Notification message={errorMessage} type='error'/>
+
 
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange}/>
 

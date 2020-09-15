@@ -6,29 +6,14 @@
       "id": 1
     },
     {
-      "name": "as",
-      "number": " 123",
+      "name": "a",
+      "number": "a",
       "id": 3
     },
     {
-      "name": "dsa",
-      "number": "dsa",
+      "name": "d",
+      "number": "d",
       "id": 4
-    },
-    {
-      "name": "dsad",
-      "number": "sasda",
-      "id": 5
-    },
-    {
-      "name": "dsasd",
-      "number": "asdasd",
-      "id": 6
-    },
-    {
-      "name": "a",
-      "number": "s",
-      "id": 7
     }
   ]
 }
