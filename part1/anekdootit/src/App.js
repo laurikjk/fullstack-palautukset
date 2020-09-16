@@ -18,6 +18,24 @@ const Votes = (props) => {
   )
 }
 
+const Most = ({votes, anecdotes}) => {
+  let most = 0
+  let indexOfMost = 0
+  let index = 0
+  votes.forEach(value => {
+    if (value>most) {
+      console.log('if')
+      most=value
+      indexOfMost=index
+    }
+    console.log(index)
+    index+=1
+  })
+  return(
+    <p>{anecdotes[indexOfMost]}</p>
+  )
+}
+
 
 const App = () => {
   const anecdotes = [
@@ -46,6 +64,7 @@ const App = () => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>
         {anecdotes[selected]}
         <Votes votes ={votes[selected]}/>
@@ -54,6 +73,9 @@ const App = () => {
         <Button handleClick = {randomState} text = {'next anecdote'}/>
         <Button handleClick = {() => addVote(votes)} text = {'vote'}/>
       </p>
+
+      <h1>Anecdote with most votes</h1>
+      <Most votes={votes} anecdotes={anecdotes}/>
       
     </div>
   )
