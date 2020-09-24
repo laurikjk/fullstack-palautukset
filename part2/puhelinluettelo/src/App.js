@@ -25,7 +25,13 @@ const App = () => {
   const handleFilterChange = (event) => {
     console.log(event.target.value)
     setNewFilter(event.target.value)
-    setShow(persons.filter(person => person.name.toLowerCase().includes(newFilter)))
+    let filtteri = event.target.value
+    console.log('filter', filtteri)
+    if(filtteri===null){
+      setShow(persons)
+    }else{
+      setShow(persons.filter(person => person.name.toLowerCase().includes(filtteri)))
+    }
   }
   const handleDelete = (id, name) => {
 
