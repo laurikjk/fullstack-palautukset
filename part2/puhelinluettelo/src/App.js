@@ -40,7 +40,10 @@ const App = () => {
       .deleteById(id)
       .then(response => {
         console.log('after delete responde: ', response)
-        
+        setMessage(`${name} deleted succesfully`)
+        setTimeout(() =>{
+          setMessage(null)
+        }, 5000)
       })
       .catch(error => {
         setErrorMessage(`${name} was already deleted`)
@@ -91,6 +94,7 @@ const App = () => {
                   persons={persons}
                   setShow={setShow}
                   setMessage={setMessage}
+                  setErrorMessage={setErrorMessage}
       />
 
       <h2>Numbers</h2>

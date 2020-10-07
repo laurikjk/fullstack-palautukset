@@ -26,14 +26,18 @@ const PersonForm = (props) =>{
             }
           }
         )
-        //conditions base on if name existed
+        //conditions based on if name existed
         if (testi===true &&
           window.confirm(`${props.newName} is already added to phonebook, replace the old number with a new one?`)){
           
           personService
             .update(id, personObj)
-            .then(response =>
-              console.log(response))
+            .then(response => {
+              console.log('update res:', response)
+              props.setPersons(props.persons.map(person => person.id !== id ? person : response))
+              props.setShow(props.persons.map(person => person.id !== id ? person : response))
+            })
+            .catch(error => console.log(error.response.data))
 
               props.setMessage(`Changed the number of ${personObj.name} to ${personObj.number}`)
               setTimeout(() => {
@@ -43,32 +47,33 @@ const PersonForm = (props) =>{
           
 
         } else if (testi!==true){
+
+        
+
           personService
           .create(personObj)
           .then(returnedPerson => {
             props.setPersons(props.persons.concat(returnedPerson))
+            props.setShow(props.persons.concat(returnedPerson))
+            props.setMessage(`Added ${personObj.name}`)
+            setTimeout(() => {
+              props.setMessage(null)
+            }, 5000)
            })
-          props.setMessage(`Added ${personObj.name}`)
-          setTimeout(() => {
-            props.setMessage(null)
-          }, 5000)
+          .catch(error => {
+            props.setErrorMessage(error.message)
+            setTimeout(() => {
+              props.setErrorMessage(null)
+            }, 5000)
+          })
+          
         }
 
-        personService
-            .getAll()
-            .then(response => {
-              props.setPersons(response)
-              props.setShow(response)
-          })
+        
         
         //reset the form
         props.setNewName('')
-        props.setNewNumber('')
-        
-  
-    
-        console.log('clikedi', event.target)
-      
+        props.setNewNumber('')      
       }
 
     return(
