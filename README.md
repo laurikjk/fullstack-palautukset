@@ -1,3 +1,3 @@
 # FullStack
-Full Stack -kurssin palautukset
-2.13 tekemättä
+Full Stack -kurssin palautukset (part3 omassa repossa)
+
