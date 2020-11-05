@@ -1,6 +1,8 @@
+const config = require('./utils/config')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const express = require('express')
+const logger = require('./utils/logger')
 const app = express()
 
 const blogSchema = mongoose.Schema({
@@ -12,9 +14,15 @@ const blogSchema = mongoose.Schema({
   
   const Blog = mongoose.model('Blog', blogSchema)
   
-  const mongoUrl = 'mongodb+srv://fullstack:sekred@fullstack.8lfhi.mongodb.net/fullstack?retryWrites=true&w=majority'
+  const mongoUrl = config.MONGODB_URI
   mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-  
+    .then(() => {
+        logger.info('connected to MongoDB')
+    })
+    .catch((error) => {
+        logger.error('error connecting to MongoDB:', error.message)
+    })
+    
   app.use(cors())
   app.use(express.json())
   
