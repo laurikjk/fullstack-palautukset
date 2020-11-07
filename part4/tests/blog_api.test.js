@@ -91,6 +91,26 @@ describe('blog api tests', () => {
 
   })
 
+  test('updating blog updates likes', async () => {
+
+
+    let blog = JSON.parse((await api
+      .get('/api/blogs')).text)[0]
+    
+    const id = blog.id
+    const before = blog.likes
+    blog.likes = blog.likes+1
+    
+    await api
+      .put(`/api/blogs/${id}`)
+      .send(blog)
+
+    const after = JSON.parse((await api
+        .get('/api/blogs')).text)[0].likes
+
+    expect(after).toBe(before+1)
+  })
+
   afterAll(() => {
     mongoose.connection.close()
   })
