@@ -65,6 +65,32 @@ describe('blog api tests', () => {
       .expect(400)
   })
 
+  test('delete returns 204', async () => {
+    const blogId = JSON.parse((await api
+      .get('/api/blogs')).text)[0].id
+  
+    await api
+      .delete(`/api/blogs/${blogId}`)
+      .expect(204)
+  })
+
+  test('list smaller after delete', async () => {
+    const before = JSON.parse((await api
+      .get('/api/blogs')).text).length
+
+    const blogId = JSON.parse((await api
+      .get('/api/blogs')).text)[0].id
+  
+    await api
+      .delete(`/api/blogs/${blogId}`)
+
+    const after = JSON.parse((await api
+      .get('/api/blogs')).text).length
+
+    expect(after).toBe(before-1)
+
+  })
+
   afterAll(() => {
     mongoose.connection.close()
   })
