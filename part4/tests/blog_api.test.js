@@ -5,7 +5,8 @@ const blog = require('../models/blog')
 const api = supertest(app)
 const Blog = require('../models/blog')
 const helper = require('./test_helper')
-describe('api tests', () => {
+
+describe('blog api tests', () => {
   beforeEach(async () => {
       await Blog.deleteMany({})
       await Blog.insertMany(helper.initialBlogs)
@@ -55,8 +56,13 @@ describe('api tests', () => {
       .get('/api/blogs')).text)
     
     expect(blogs[6].likes).toBe(0)
+  })
 
-
+  test('posting blog without title and url gives response 400', async () =>{
+    await api
+      .post('/api/blogs')
+      .send(new Blog({ _id: "5a422a851b54a676234d17f7", author: "Michael Chan", __v: 0 }))
+      .expect(400)
   })
 
   afterAll(() => {
