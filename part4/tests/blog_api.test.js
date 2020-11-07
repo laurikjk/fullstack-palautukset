@@ -46,6 +46,19 @@ describe('api tests', () => {
     expect(after).toBe(before+1)
   })
 
+  test('posting blog without likes makes likes 0', async () =>{
+    await api
+      .post('/api/blogs')
+      .send(new Blog({ _id: "5a422a851b54a676234d17f7", title: "React patterns", author: "Michael Chan", url: "https://reactpatterns.com/", __v: 0 }))
+    
+    const blogs = JSON.parse((await api
+      .get('/api/blogs')).text)
+    
+    expect(blogs[6].likes).toBe(0)
+
+
+  })
+
   afterAll(() => {
     mongoose.connection.close()
   })
