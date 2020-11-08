@@ -5,6 +5,8 @@ const blog = require('../models/blog')
 const api = supertest(app)
 const Blog = require('../models/blog')
 const helper = require('./test_helper')
+const User = require('../models/user')
+const { initialUsers } = require('./test_helper')
 
 describe('blog api tests', () => {
   beforeEach(async () => {
@@ -108,6 +110,24 @@ describe('blog api tests', () => {
         .get('/api/blogs')).text)[0].likes
 
     expect(after).toBe(before+1)
+  })
+
+  afterAll(() => {
+    mongoose.connection.close()
+  })
+})
+
+describe('users api tests', () => {
+  beforeEach(async () => {
+    await User.deleteMany({})
+    await User.insertMany(helper.initialUsers)
+})
+
+  test('adding non unique username return code 400', async () => {
+    await api
+      .post('/api/users')
+      .send(helper.initialUsers[0])
+      .expect(400)
   })
 
   afterAll(() => {

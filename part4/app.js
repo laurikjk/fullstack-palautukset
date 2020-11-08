@@ -1,13 +1,14 @@
+const config = require('./utils/config')
 const http = require('http')
 const express = require('express')
 const app = express()
+require('express-async-errors')
 const cors = require('cors')
 const usersRouter = require('./controllers/users')
 const blogsRouter = require('./controllers/blogs')
-const mongoose = require('mongoose')
 const logger = require('./utils/logger')
-const config = require('./utils/config')
 const middleware = require('./utils/middleware')
+const mongoose = require('mongoose')
 
 
 logger.info('connecting to MongoDB')
