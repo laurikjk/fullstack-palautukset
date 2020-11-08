@@ -112,25 +112,29 @@ describe('blog api tests', () => {
     expect(after).toBe(before+1)
   })
 
-  afterAll(() => {
-    mongoose.connection.close()
-  })
 })
 
 describe('users api tests', () => {
   beforeEach(async () => {
     await User.deleteMany({})
-    await User.insertMany(helper.initialUsers)
-})
+    const user = new User({ username: 'root',name: 'root', password: 'sekret' })
+    await user.save()
+  })
 
-  test('adding non unique username return code 400', async () => {
+  test('adding non unique username returns code 400', async () => {
+    const user = {
+      username: 'root',
+      name: 'Superuser',
+      password: 'salainen',
+    }
     await api
       .post('/api/users')
-      .send(helper.initialUsers[0])
+      .send(user)
       .expect(400)
   })
 
-  afterAll(() => {
-    mongoose.connection.close()
-  })
+})
+
+afterAll(() => {
+  mongoose.connection.close()
 })
