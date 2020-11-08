@@ -91,8 +91,7 @@ describe('blog api tests', () => {
 
   })
 
-  test('updating blog updates likes', async () => {
-
+  test('updating likes works', async () => {
 
     let blog = JSON.parse((await api
       .get('/api/blogs')).text)[0]
