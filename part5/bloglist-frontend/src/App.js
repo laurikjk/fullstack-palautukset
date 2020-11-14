@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import Notification from './components/Notifcation'
 import BlogForm from './components/BlogForm'
 import LoggedIn from './components/LoggedIn'
 import LoginForm from './components/LoginForm'
@@ -9,7 +10,7 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [ notification, setNotification ] = useState(null)
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -32,6 +33,13 @@ const App = () => {
     }
   }, [])
 
+  const notifyWith = (message, type='success') => {
+    setNotification({ message, type })
+    setTimeout(() => {
+      setNotification(null)
+    }, 5000)
+  }
+
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -48,9 +56,9 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('wrong credentials')
+      notifyWith('wrong credentials', 'error')
       setTimeout(() => {
-        setErrorMessage(null)
+        setNotification(null)
       }, 5000)
     }
   }
@@ -75,6 +83,10 @@ const App = () => {
         setTitle('')
         setAuthor('')
         setUrl('')
+        notifyWith(`a new blog "${returnedBlog.title}" by ${returnedBlog.author} added`)
+        setTimeout(() =>{
+          setNotification(null)
+        }, 5000)
       })
   }
 
@@ -82,13 +94,17 @@ const App = () => {
 
   if (user === null) {
     return(
-      <LoginForm
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-        handleLogin={handleLogin}
-      />
+      <div>
+        <Notification notification={notification}/>
+
+        <LoginForm
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+        />
+      </div>
     )
   }
   return (
@@ -98,6 +114,8 @@ const App = () => {
         handleLogout={handleLogout}
       />
 
+      <Notification notification={notification} />
+      
       <BlogForm
         title={title}
         author={author}
