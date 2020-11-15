@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import Notification from './components/Notifcation'
 import BlogForm from './components/BlogForm'
 import LoggedIn from './components/LoggedIn'
 import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
+import Togglable from './components/Togglable'
 
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [ notification, setNotification ] = useState(null)
   const [user, setUser] = useState(null)
-  const [blogFormVisible, setBlogFormVisible] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -35,9 +35,21 @@ const App = () => {
     }, 5000)
   }
 
+  const blogFormRef = useRef()
+
   const blogForm = () => {
-    const hideWhenVisible = { display: blogFormVisible ? 'none' : '' }
-    const showWhenVisible = { display: blogFormVisible ? '' : 'none' }
+    return(
+      <Togglable buttonLabel="new blog" ref={blogFormRef}>
+        <BlogForm
+            blogs={blogs}
+            setBlogs={setBlogs}
+            notifyWith={notifyWith}
+            setNotification={setNotification}
+            blogService={blogService}
+            blogFormRef={blogFormRef}
+          />
+      </Togglable>
+    )
   }
 
   if (user === null) {
@@ -54,6 +66,7 @@ const App = () => {
       </div>
     )
   }
+
   return (
     <div>
       <LoggedIn 
@@ -62,13 +75,7 @@ const App = () => {
 
       <Notification notification={notification} />
       
-      <BlogForm
-        blogs={blogs}
-        setBlogs={setBlogs}
-        notifyWith={notifyWith}
-        setNotification={setNotification}
-        blogService={blogService}
-      />
+      {blogForm()}
 
       <h2>blogs</h2>
       {blogs.map(blog =>

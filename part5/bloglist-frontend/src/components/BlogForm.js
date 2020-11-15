@@ -2,7 +2,7 @@ import React,  { useState } from 'react'
 
 
 
-const BlogForm = ( { blogs, setBlogs, notifyWith, setNotification, blogService } ) => {
+const BlogForm = ( { blogs, setBlogs, notifyWith, setNotification, blogService, blogFormRef } ) => {
 
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
@@ -10,6 +10,7 @@ const BlogForm = ( { blogs, setBlogs, notifyWith, setNotification, blogService 
 
     const handleCreate = event => {
         event.preventDefault()
+        blogFormRef.current.toggleVisibility()
         const newBlog = 
         {
             title: title,
