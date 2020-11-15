@@ -14,9 +14,7 @@ const App = () => {
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
+  const [blogFormVisible, setBlogFormVisible] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -68,30 +66,6 @@ const App = () => {
     window.localStorage.clear()
   }
 
-  const handleCreate = event => {
-    event.preventDefault()
-    const newBlog = 
-      {
-        title: title,
-        author: author,
-        url: url,
-      }
-    blogService
-      .create(newBlog)
-      .then(returnedBlog => {
-        setBlogs(blogs.concat(returnedBlog))
-        setTitle('')
-        setAuthor('')
-        setUrl('')
-        notifyWith(`a new blog "${returnedBlog.title}" by ${returnedBlog.author} added`)
-        setTimeout(() =>{
-          setNotification(null)
-        }, 5000)
-      })
-  }
-
-  
-
   if (user === null) {
     return(
       <div>
@@ -103,6 +77,8 @@ const App = () => {
           password={password}
           setPassword={setPassword}
           handleLogin={handleLogin}
+          handlePasswordChange={({ target }) => setPassword(target.value)}
+          handleUsernameChange={({ target }) => setUsername(target.value)}
         />
       </div>
     )
@@ -117,13 +93,11 @@ const App = () => {
       <Notification notification={notification} />
       
       <BlogForm
-        title={title}
-        author={author}
-        url={url}
-        setTitle={setTitle}
-        setAuthor={setAuthor}
-        setUrl={setUrl}
-        handleCreate={handleCreate}
+        blogs={blogs}
+        setBlogs={setBlogs}
+        notifyWith={notifyWith}
+        setNotification={setNotification}
+        blogService={blogService}
       />
 
       <h2>blogs</h2>

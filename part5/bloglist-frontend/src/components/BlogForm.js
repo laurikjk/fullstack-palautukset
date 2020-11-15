@@ -1,6 +1,34 @@
-import React from 'react'
+import React,  { useState } from 'react'
 
-const BlogForm = ({ title, author, url, setTitle, setAuthor, setUrl, handleCreate}) => {
+
+
+const BlogForm = ( { blogs, setBlogs, notifyWith, setNotification, blogService } ) => {
+
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
+    const [url, setUrl] = useState('')
+
+    const handleCreate = event => {
+        event.preventDefault()
+        const newBlog = 
+        {
+            title: title,
+            author: author,
+            url: url,
+        }
+        blogService
+            .create(newBlog)
+            .then(returnedBlog => {
+                setBlogs(blogs.concat(returnedBlog))
+                setTitle('')
+                setAuthor('')
+                setUrl('')
+                notifyWith(`a new blog "${returnedBlog.title}" by ${returnedBlog.author} added`)
+                setTimeout(() =>{
+                setNotification(null)
+                }, 5000)
+        })
+    }
     
     return(
             
