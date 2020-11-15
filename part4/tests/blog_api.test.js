@@ -6,15 +6,19 @@ const api = supertest(app)
 const Blog = require('../models/blog')
 const helper = require('./test_helper')
 const User = require('../models/user')
-const { initialUsers } = require('./test_helper')
+
 
 describe('blog api tests', () => {
+
   beforeEach(async () => {
       await Blog.deleteMany({})
       await Blog.insertMany(helper.initialBlogs)
+      await User.deleteMany({})
+      await User.insertMany(helper.initialUsers)
   })
 
   test('blogs are returned as json', async () => {
+    
     await api
       .get('/api/blogs')
       .expect(200)
