@@ -9,9 +9,9 @@ import Togglable from './components/Togglable'
 
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
+  const [ blogs, setBlogs ] = useState([])
   const [ notification, setNotification ] = useState(null)
-  const [user, setUser] = useState(null)
+  const [ user, setUser ] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -39,7 +39,11 @@ const App = () => {
 
   const blogForm = () => {
     return(
-      <Togglable buttonLabel="new blog" ref={blogFormRef}>
+      <Togglable 
+        showButtonLabel="new blog" 
+        hideButtonLabel="cancel" 
+        ref={blogFormRef}
+      >  
         <BlogForm
             blogs={blogs}
             setBlogs={setBlogs}
@@ -49,6 +53,33 @@ const App = () => {
             blogFormRef={blogFormRef}
           />
       </Togglable>
+    )
+  }
+
+  const blogInfoRef = useRef()
+
+  const blogInfo = () => {
+
+    const blogStyle = {
+      paddingBottom:2,
+      paddingLeft: 2,
+      border: 'solid',
+      borderWidth: 1,
+      marginBottom: 5
+    }
+
+    const bloglist = blogs.map(blog =>
+      <div style={blogStyle}>
+      <Togglable showButtonLabel="info" 
+                 hideButtonLabel="hide" 
+                 beforeVisible={blog.title}
+                 ref={blogInfoRef}>
+        <Blog key={blog.id} blog={blog} blogInfoRef={blogInfoRef} />
+      </Togglable>
+      </div>
+    )
+    return(
+      bloglist
     )
   }
 
@@ -78,9 +109,7 @@ const App = () => {
       {blogForm()}
 
       <h2>blogs</h2>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
+      {blogInfo()}
     </div>
   )
 }
