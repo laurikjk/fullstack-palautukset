@@ -67,7 +67,13 @@ const App = () => {
       color: 'black'
     }
 
-    const bloglist = blogs.map(blog =>
+    const sortByLikes = (a, b) => {
+      return b.likes - a.likes
+    }
+
+    const sortedBlogs = blogs.sort(sortByLikes)
+
+    const bloglist = sortedBlogs.map(blog =>
       <div style={blogStyle}>
       <Togglable showButtonLabel="info" 
                  hideButtonLabel="hide" 
