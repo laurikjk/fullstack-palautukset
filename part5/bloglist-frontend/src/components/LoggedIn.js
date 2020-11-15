@@ -1,6 +1,11 @@
 import React from 'react'
 
-const LoggedIn = ({ user, handleLogout }) => {
+const LoggedIn = ({ user }) => {
+
+    const handleLogout = event => {
+        event.preventDefault()
+        window.localStorage.clear()
+    }
 
     return(
         <div>
