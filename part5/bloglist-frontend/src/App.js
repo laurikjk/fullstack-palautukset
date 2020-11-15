@@ -74,7 +74,7 @@ const App = () => {
     const sortedBlogs = blogs.sort(sortByLikes)
 
     const bloglist = sortedBlogs.map(blog =>
-      <div style={blogStyle}>
+      <div style={blogStyle} key={blog.id}>
       <Togglable showButtonLabel="info" 
                  hideButtonLabel="hide" 
                  beforeVisible={blog.title}
@@ -119,7 +119,9 @@ const App = () => {
       {blogForm()}
 
       <h2>blogs</h2>
+      
       {blogInfo()}
+      
     </div>
   )
 }
