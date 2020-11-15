@@ -61,11 +61,10 @@ const App = () => {
   const blogInfo = () => {
 
     const blogStyle = {
-      paddingBottom:2,
-      paddingLeft: 2,
+      background: 'white',
       border: 'solid',
       borderWidth: 1,
-      marginBottom: 5
+      color: 'black'
     }
 
     const bloglist = blogs.map(blog =>
@@ -74,7 +73,12 @@ const App = () => {
                  hideButtonLabel="hide" 
                  beforeVisible={blog.title}
                  ref={blogInfoRef}>
-        <Blog key={blog.id} blog={blog} blogInfoRef={blogInfoRef} />
+        <Blog 
+          key={blog.id} 
+          blog={blog} 
+          setBlogs={setBlogs} 
+          blogs={blogs}
+          blogInfoRef={blogInfoRef} />
       </Togglable>
       </div>
     )
