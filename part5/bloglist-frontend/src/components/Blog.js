@@ -25,12 +25,12 @@ const Blog = ({ blog, blogs, setBlogs }) => {
       event.preventDefault()
 
       window.confirm(`Are you sure you want to delete ${blog.title}`)
-      ? blogService
-        .remove(blog.id)
-        .then(result => {
-          setBlogs(blogs.filter(b => b.id !== blog.id))
-        })
-      : console.log('canceled')
+        ? blogService
+            .remove(blog.id)
+            .then(result => {
+              setBlogs(blogs.filter(b => b.id !== blog.id))
+            })
+        : console.log('canceled deletion')
     }
 
   return(
