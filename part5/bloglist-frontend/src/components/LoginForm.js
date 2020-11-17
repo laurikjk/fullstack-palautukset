@@ -3,7 +3,7 @@ import loginService from '../services/login'
 
 const LoginForm = ({ blogService, setUser, notifyWith, setNotification }) => {
 
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const handleLogin = async (event) => {
@@ -28,31 +28,31 @@ const LoginForm = ({ blogService, setUser, notifyWith, setNotification }) => {
       }, 5000)
     }
   }
-  
+
   return(
     <form onSubmit={handleLogin}>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
           onChange={({ target }) => setUsername(target.value)}
-          />
+        />
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
           onChange={({ target }) => setPassword(target.value)}
-          />
+        />
 
       </div>
       <button type="submit">login</button>
     </form>
-  )      
+  )
 }
 
-  export default LoginForm
+export default LoginForm

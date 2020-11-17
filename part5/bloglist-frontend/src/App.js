@@ -16,7 +16,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -39,19 +39,19 @@ const App = () => {
 
   const blogForm = () => {
     return(
-      <Togglable 
-        showButtonLabel="new blog" 
-        hideButtonLabel="cancel" 
+      <Togglable
+        showButtonLabel="new blog"
+        hideButtonLabel="cancel"
         ref={blogFormRef}
-      >  
+      >
         <BlogForm
-            blogs={blogs}
-            setBlogs={setBlogs}
-            notifyWith={notifyWith}
-            setNotification={setNotification}
-            blogService={blogService}
-            blogFormRef={blogFormRef}
-          />
+          blogs={blogs}
+          setBlogs={setBlogs}
+          notifyWith={notifyWith}
+          setNotification={setNotification}
+          blogService={blogService}
+          blogFormRef={blogFormRef}
+        />
       </Togglable>
     )
   }
@@ -75,17 +75,17 @@ const App = () => {
 
     const bloglist = sortedBlogs.map(blog =>
       <div style={blogStyle} key={blog.id}>
-      <Togglable showButtonLabel="info" 
-                 hideButtonLabel="hide" 
-                 beforeVisible={blog.title}
-                 ref={blogInfoRef}>
-        <Blog 
-          key={blog.id} 
-          blog={blog} 
-          setBlogs={setBlogs} 
-          blogs={blogs}
-          blogInfoRef={blogInfoRef} />
-      </Togglable>
+        <Togglable showButtonLabel="info"
+          hideButtonLabel="hide"
+          beforeVisible={blog.title}
+          ref={blogInfoRef}>
+          <Blog
+            key={blog.id}
+            blog={blog}
+            setBlogs={setBlogs}
+            blogs={blogs}
+            blogInfoRef={blogInfoRef} />
+        </Togglable>
       </div>
     )
     return(
@@ -110,18 +110,18 @@ const App = () => {
 
   return (
     <div>
-      <LoggedIn 
+      <LoggedIn
         user={user}
       />
 
       <Notification notification={notification} />
-      
+
       {blogForm()}
 
       <h2>blogs</h2>
-      
+
       {blogInfo()}
-      
+
     </div>
   )
 }
