@@ -19,7 +19,19 @@ const Blog = ({ blog, blogs, setBlogs }) => {
       .then(returnedBlog => {
         setBlogs(blogs.map(mappedBlog => mappedBlog.id !== blog.id ? mappedBlog : returnedBlog)
       )})
-  }
+    }
+
+    const removeHandler = event => {
+      event.preventDefault()
+
+      window.confirm(`Are you sure you want to delete ${blog.title}`)
+      ? blogService
+        .remove(blog.id)
+        .then(result => {
+          setBlogs(blogs.filter(b => b.id !== blog.id))
+        })
+      : console.log('canceled')
+    }
 
   return(
     <div>
@@ -38,6 +50,8 @@ const Blog = ({ blog, blogs, setBlogs }) => {
       <div>
         url: {blog.url}
       </div>
+
+      <button onClick={removeHandler}>remove</button>
     </div>
   )
 }
