@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import Blog from '../components/Blog'
 
 describe('<Blog />', () => {
@@ -30,6 +30,23 @@ describe('<Blog />', () => {
     const div = component.container.querySelector('.togglableContent')
 
     expect(div).toHaveStyle('display: none')
+  })
+
+  test('after clicking the button, something displayed', () => {
+    const button = component.getByText('info')
+    fireEvent.click(button)
+
+    const div = component.container.querySelector('.togglableContent')
+    expect(div).not.toHaveStyle('display: none')
+  })
+
+  test('after clicking the button, likes and url are displayed', () => {
+    const button = component.getByText('info')
+    fireEvent.click(button)
+
+    const div = component.container.querySelector('.togglableContent')
+    expect(div).toHaveTextContent('url:')
+    expect(div).toHaveTextContent('Likes:')
   })
 
 })
