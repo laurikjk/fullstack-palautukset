@@ -49,7 +49,7 @@ const Blog = ({ blog, blogs, setBlogs }) => {
         <button onClick={toggleVisibility}>info</button>
       </div>
 
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} className="togglableContent">
         <div>
           <h3>{blog.title}</h3>
         </div>
