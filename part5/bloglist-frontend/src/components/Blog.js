@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
 const Blog = ({ blog, blogs, setBlogs }) => {
+  const [visible, setVisible] = useState(false)
+  const hideWhenVisible = { display: visible ? 'none' : '' }
+  const showWhenVisible = { display: visible ? '' : 'none' }
+
+  const toggleVisibility = () => {
+    setVisible(!visible)
+  }
 
   const likeHandler = (event) => {
     event.preventDefault()
@@ -36,23 +43,31 @@ const Blog = ({ blog, blogs, setBlogs }) => {
 
   return(
     <div>
-      <div>
+
+      <div style={hideWhenVisible}>
         <h3>{blog.title}</h3>
+        <button onClick={toggleVisibility}>info</button>
       </div>
-      <div>
+
+      <div style={showWhenVisible}>
+        <div>
+          <h3>{blog.title}</h3>
+        </div>
+        <div>
         Author: {blog.author}
-      </div>
+        </div>
 
-      <div>
+        <div>
         Likes: {blog.likes}
-        <button onClick={likeHandler}>like</button>
-      </div>
+          <button onClick={likeHandler}>like</button>
+        </div>
 
-      <div>
+        <div>
         url: {blog.url}
+        </div>
+        <button onClick={removeHandler}>remove</button>
+        <button onClick={toggleVisibility}>hide</button>
       </div>
-
-      <button onClick={removeHandler}>remove</button>
     </div>
   )
 }

@@ -56,7 +56,7 @@ const App = () => {
     )
   }
 
-  const blogInfoRef = useRef()
+
 
   const blogInfo = () => {
 
@@ -70,22 +70,16 @@ const App = () => {
     const sortByLikes = (a, b) => {
       return b.likes - a.likes
     }
-
     const sortedBlogs = blogs.sort(sortByLikes)
 
     const bloglist = sortedBlogs.map(blog =>
       <div style={blogStyle} key={blog.id}>
-        <Togglable showButtonLabel="info"
-          hideButtonLabel="hide"
-          beforeVisible={blog.title}
-          ref={blogInfoRef}>
-          <Blog
-            key={blog.id}
-            blog={blog}
-            setBlogs={setBlogs}
-            blogs={blogs}
-            blogInfoRef={blogInfoRef} />
-        </Togglable>
+        <Blog
+          key={blog.id}
+          blog={blog}
+          setBlogs={setBlogs}
+          blogs={blogs}
+        />
       </div>
     )
     return(
