@@ -41,6 +41,7 @@ const App = () => {
     return(
       <Togglable
         showButtonLabel="new blog"
+        showid="show-button"
         hideButtonLabel="cancel"
         ref={blogFormRef}
       >
