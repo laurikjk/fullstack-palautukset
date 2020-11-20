@@ -12,8 +12,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
   const [ show, setShow ] = useState([])
-  const [ message, setMessage] = useState(null)
-  const [ errorMessage, setErrorMessage] = useState(null)
+  const [ notification, setNotification ] = useState(null)
 
   const handleNameChange = (event) => {
     setNewName(event.target.value) //keeps track of the text on the form
@@ -76,9 +75,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={message} type='message'/>
-      <Notification message={errorMessage} type='error'/>
-
+      <Notification notification={notification} />
 
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange}/>
 
