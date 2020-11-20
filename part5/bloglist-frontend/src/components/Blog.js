@@ -47,7 +47,7 @@ const Blog = ({ blog, blogs, setBlogs }) => {
 
       <div style={hideWhenVisible}>
         <h3>{blog.title}</h3>
-        <button onClick={toggleVisibility}>info</button>
+        <button onClick={toggleVisibility} id="showblog-button">info</button>
       </div>
 
       <div style={showWhenVisible} className="togglableContent">
@@ -60,13 +60,13 @@ const Blog = ({ blog, blogs, setBlogs }) => {
 
         <div>
         Likes: {blog.likes}
-          <button onClick={likeHandler}>like</button>
+          <button onClick={likeHandler} id="like-button">like</button>
         </div>
 
         <div>
         url: {blog.url}
         </div>
-        <button onClick={removeHandler}>remove</button>
+        <button onClick={removeHandler} id="remove-button">remove</button>
         <button onClick={toggleVisibility}>hide</button>
       </div>
     </div>

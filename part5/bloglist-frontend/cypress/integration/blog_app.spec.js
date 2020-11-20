@@ -59,5 +59,27 @@ describe('Blog app', function() {
 
       cy.contains('blog title')
     })
+
+    it('A blog can be liked', function() {
+      cy.get('#show-button').click()
+      cy.get('#title-input').type('blog title')
+      cy.get('#author-input').type('author')
+      cy.get('#url-input').type('google.com')
+      cy.get('#create-button').click()
+      cy.get('#showblog-button').click()
+      cy.get('#like-button').click()
+      cy.contains('Likes: 1')
+    })
+
+    it('Blog can be removed by user', function() {
+      cy.get('#show-button').click()
+      cy.get('#title-input').type('blog title')
+      cy.get('#author-input').type('author')
+      cy.get('#url-input').type('google.com')
+      cy.get('#create-button').click()
+      cy.get('#showblog-button').click()
+      cy.get('#remove-button').click()
+      cy.get('html').should('not.contain', '#showblog-button')
+    })
   })
 })
