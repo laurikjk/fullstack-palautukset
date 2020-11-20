@@ -27,7 +27,8 @@ const Blog = ({ blog, blogs, setBlogs }) => {
       .update(blog.id, newBlog)
       .then(returnedBlog => {
         setBlogs(blogs.map(mappedBlog => mappedBlog.id !== blog.id ? mappedBlog : returnedBlog)
-        )})
+        )}
+      )
   }
 
   const removeHandler = event => {

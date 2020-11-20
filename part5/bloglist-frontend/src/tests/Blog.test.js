@@ -7,12 +7,13 @@ describe('<Blog />', () => {
 
   let component
 
+  const blog = {
+    title: 'blog title',
+    author: 'blog author',
+    url: 'blog url'
+  }
+
   beforeEach(() => {
-    const blog = {
-      title: 'blog title',
-      author: 'blog author',
-      url: 'blog url'
-    }
 
     component = render(<Blog blog={blog} />)
   })
@@ -49,4 +50,26 @@ describe('<Blog />', () => {
     expect(div).toHaveTextContent('Likes:')
   })
 
+  // My components have handlers in them so i can't do this
+  // here is the code that would work.
+  /**
+  test('clicking like calls handler', () => {
+    const mockHandler = jest.fn()
+
+    component = render(
+      <Blog blog={blog} setBlogs={mockHandler} />
+    )
+
+    component.debug()
+
+    const button = component.container.querySelector('#blogLikeButton')
+    fireEvent.click(button)
+    fireEvent.click(button)
+
+    expect(mockHandler.mock.calls).toHaveLength(2)
+
+  })
+  */
+
 })
+
