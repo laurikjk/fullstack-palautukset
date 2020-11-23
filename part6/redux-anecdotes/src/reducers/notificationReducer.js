@@ -1,7 +1,7 @@
 
-const reducer = (state = '', action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
+const reducer = (state = {message: '', timer: null}, action) => {
+  console.log('notification state now: ', state)
+  console.log('notification action', action)
 
   switch (action.type) {
     case 'SHOW_NOTIFICATION':
@@ -18,10 +18,17 @@ const reducer = (state = '', action) => {
 }
 
 export const showNotification = (message) => {
-  return({
+  return{
     type: 'SHOW_NOTIFICATION',
-    data: message
-  })
+    data: { 
+      message: message}
+  }
+}
+
+export const hideNotification = () => {
+  return{
+    type: 'HIDE_NOTIFICATION'
+  }
 }
 
 
