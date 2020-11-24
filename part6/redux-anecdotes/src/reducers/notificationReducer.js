@@ -5,24 +5,37 @@ const reducer = (state = {message: '', timer: null}, action) => {
 
   switch (action.type) {
     case 'SHOW_NOTIFICATION':
+      if (state.timer !== null) {
+        clearTimeout(state.timer)
+      }
       return {
-        message: action.data.message
+        message: action.data.message,
+        timer: action.data.timer
       }
     case 'HIDE_NOTIFICATION':
       return {
-        message: ''
+        message: '',
+        timer: null
       }
     default: 
       return state
   }
 }
 
-export const showNotification = (message) => {
-  return{
-    type: 'SHOW_NOTIFICATION',
-    data: { 
-      message: message}
-  }
+export const showNotification = (message, durationInSec) => {
+  return async dispatch => {
+    const milliseconds = durationInSec * 1000
+    const timer = setTimeout(() => {
+        dispatch(hideNotification())
+    }, milliseconds)
+    dispatch({
+        type: 'SHOW_NOTIFICATION',
+        data: {
+            message,
+            timer
+        }
+    })
+}
 }
 
 export const hideNotification = () => {
