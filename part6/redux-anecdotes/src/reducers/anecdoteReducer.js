@@ -13,9 +13,10 @@ const reducer = (state = [], action) => {
         ...voted,
         votes: voted.votes+1
       }
-      return state.map(anecdote => 
+      const list = state.map(anecdote => 
         anecdote.id !== id ? anecdote : changed
       )
+      return list.sort((a,b) => b.votes - a.votes)
     case 'CREATE':
       return [...state, action.data]
     case 'INIT_ANECDOTES':
@@ -30,7 +31,7 @@ export const initAnecdotes = () => {
     const anecdotes = await anecdoteService.getAll()
     dispatch({
       type: 'INIT_ANECDOTES',
-      data: anecdotes
+      data: anecdotes.sort((a, b) => b.votes - a.votes)
     })
   }
 }
