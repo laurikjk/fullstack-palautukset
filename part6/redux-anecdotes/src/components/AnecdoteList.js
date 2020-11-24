@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { showNotification } from '../reducers/notificationReducer'
 
-
 const AnecdoteList = (props) => {
 
   return(
