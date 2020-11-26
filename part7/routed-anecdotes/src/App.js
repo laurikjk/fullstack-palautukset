@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
-  Switch, Route, Link
+  Switch, Route, Link, useParams
 } from "react-router-dom"
 
 const Menu = () => {
@@ -21,7 +21,11 @@ const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      {anecdotes.map(anecdote => 
+        <li key={anecdote.id} >
+          <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
+        </li>
+      )}
     </ul>
   </div>
 )
@@ -87,6 +91,19 @@ const CreateNew = (props) => {
 
 }
 
+const Anecdote = ({ anecdotes }) => {
+  const id = useParams().id
+  const anecdote = anecdotes.find(n => n.id === Number(id))
+
+  return (
+    <div>
+      <h2>{anecdote.content}</h2>
+      <div>{anecdote.author}</div>
+      <div>{anecdote.votes}</div>
+    </div>
+  )
+}
+
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
     {
@@ -132,6 +149,9 @@ const App = () => {
       <Router>
         <Menu />
         <Switch>
+          <Route path="/anecdotes/:id">
+            <Anecdote anecdotes={anecdotes} />
+          </Route>
           <Route path="/about">
             <About />
           </Route>
@@ -143,6 +163,7 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
+      <Footer />
     </div>
   )
 }
