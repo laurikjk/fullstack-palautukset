@@ -1,8 +1,10 @@
 import React,  { useState } from 'react'
+import { connect } from 'react-redux'
+import { showNotification } from '../reducers/notificationReducer'
 
 
 
-const BlogForm = ({ blogs, setBlogs, notifyWith, setNotification, blogService, blogFormRef } ) => {
+const BlogForm = ({ blogs, setBlogs, blogService, blogFormRef, showNotification } ) => {
 
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
@@ -24,10 +26,7 @@ const BlogForm = ({ blogs, setBlogs, notifyWith, setNotification, blogService, b
         setTitle('')
         setAuthor('')
         setUrl('')
-        notifyWith(`a new blog "${returnedBlog.title}" by ${returnedBlog.author} added`)
-        setTimeout(() => {
-          setNotification(null)
-        }, 5000)
+        showNotification(`a new blog "${returnedBlog.title}" by ${returnedBlog.author} added`, 5)
       })
   }
 
@@ -71,4 +70,18 @@ const BlogForm = ({ blogs, setBlogs, notifyWith, setNotification, blogService, b
   )
 }
 
-export default BlogForm
+const mapStateToProps = () => {
+  return {
+  }
+}
+
+const mapDispatchToProps = {
+  showNotification
+}
+
+const ConnectedBlogForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BlogForm)
+
+export default ConnectedBlogForm

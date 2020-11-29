@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import loginService from '../services/login'
+import { connect } from 'react-redux'
+import { showNotification } from '../reducers/notificationReducer'
 
-const LoginForm = ({ blogService, setUser, notifyWith, setNotification }) => {
+const LoginForm = ({ blogService, setUser, showNotification }) => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -22,10 +24,7 @@ const LoginForm = ({ blogService, setUser, notifyWith, setNotification }) => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      notifyWith('wrong credentials', 'error')
-      setTimeout(() => {
-        setNotification(null)
-      }, 5000)
+      showNotification('wrong credentials', 5)
     }
   }
 
@@ -57,4 +56,18 @@ const LoginForm = ({ blogService, setUser, notifyWith, setNotification }) => {
   )
 }
 
-export default LoginForm
+const mapStateToProps = () => {
+  return {
+  }
+}
+
+const mapDispatchToProps = {
+  showNotification
+}
+
+const ConnectedLoginForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginForm)
+
+export default ConnectedLoginForm
