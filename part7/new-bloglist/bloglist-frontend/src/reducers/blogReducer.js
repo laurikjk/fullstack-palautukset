@@ -33,3 +33,5 @@ export const createBlog = (blog) => {
         })
     }
 }
+
+export default reducer

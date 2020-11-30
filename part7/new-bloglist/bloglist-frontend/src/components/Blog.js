@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog, blogs, setBlogs }) => {
+const Blog = ({ blog }) => {
   const [visible, setVisible] = useState(false)
   const hideWhenVisible = { display: visible ? 'none' : '' }
   const showWhenVisible = { display: visible ? '' : 'none' }
@@ -10,9 +10,10 @@ const Blog = ({ blog, blogs, setBlogs }) => {
     setVisible(!visible)
   }
 
+  
   const likeHandler = (event) => {
     event.preventDefault()
-
+    /*
     const newBlog = {
       user: blog.user.id,
       likes: blog.likes +1,
@@ -29,10 +30,12 @@ const Blog = ({ blog, blogs, setBlogs }) => {
         setBlogs(blogs.map(mappedBlog => mappedBlog.id !== blog.id ? mappedBlog : returnedBlog)
         )}
       )
+      */
   }
 
   const removeHandler = event => {
     event.preventDefault()
+    /*
     window.confirm(`Are you sure you want to delete ${blog.title}`)
       ? blogService
         .remove(blog.id)
@@ -40,8 +43,10 @@ const Blog = ({ blog, blogs, setBlogs }) => {
           setBlogs(blogs.filter(b => b.id !== blog.id))
         })
       : console.log('canceled deletion')
-  }
+    */
+    }
 
+  
   return(
     <div>
 

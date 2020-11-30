@@ -6,18 +6,19 @@ import LoggedIn from './components/LoggedIn'
 import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
 import Togglable from './components/Togglable'
-
+import BlogList from './components/BlogList'
+import { useDispatch } from 'react-redux'
+import { initBlogs } from './reducers/blogReducer'
 
 const App = () => {
   const [ blogs, setBlogs ] = useState([])
   const [ notification, setNotification ] = useState(null)
   const [ user, setUser ] = useState(null)
 
+  const dispatch = useDispatch()
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )
-  }, [])
+    dispatch(initBlogs())
+  }, [dispatch])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
@@ -103,6 +104,8 @@ const App = () => {
     )
   }
 
+  
+
   return (
     <div>
       <LoggedIn
@@ -115,7 +118,7 @@ const App = () => {
 
       <h2>blogs</h2>
 
-      {blogInfo()}
+      <BlogList />
 
     </div>
   )
