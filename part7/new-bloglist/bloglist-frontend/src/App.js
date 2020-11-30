@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Blog from './components/Blog'
 import Notification from './components/Notifcation'
 import BlogForm from './components/BlogForm'
 import LoggedIn from './components/LoggedIn'
@@ -55,37 +54,6 @@ const App = () => {
           blogFormRef={blogFormRef}
         />
       </Togglable>
-    )
-  }
-
-
-
-  const blogInfo = () => {
-
-    const blogStyle = {
-      background: 'white',
-      border: 'solid',
-      borderWidth: 1,
-      color: 'black'
-    }
-
-    const sortByLikes = (a, b) => {
-      return b.likes - a.likes
-    }
-    const sortedBlogs = blogs.sort(sortByLikes)
-
-    const bloglist = sortedBlogs.map(blog =>
-      <div style={blogStyle} key={blog.id}>
-        <Blog
-          key={blog.id}
-          blog={blog}
-          setBlogs={setBlogs}
-          blogs={blogs}
-        />
-      </div>
-    )
-    return(
-      bloglist
     )
   }
 

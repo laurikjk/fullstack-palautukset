@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import blogService from '../services/blogs'
+import { likeBlog, removeBlog } from '../reducers/blogReducer'
+import { connect } from 'react-redux'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, likeBlog, removeBlog }) => {
   const [visible, setVisible] = useState(false)
   const hideWhenVisible = { display: visible ? 'none' : '' }
   const showWhenVisible = { display: visible ? '' : 'none' }
@@ -13,37 +14,15 @@ const Blog = ({ blog }) => {
   
   const likeHandler = (event) => {
     event.preventDefault()
-    /*
-    const newBlog = {
-      user: blog.user.id,
-      likes: blog.likes +1,
-      author: blog.author,
-      title: blog.title,
-      url: blog.url
-    }
-
-    console.log(newBlog.url)
-
-    blogService
-      .update(blog.id, newBlog)
-      .then(returnedBlog => {
-        setBlogs(blogs.map(mappedBlog => mappedBlog.id !== blog.id ? mappedBlog : returnedBlog)
-        )}
-      )
-      */
+    likeBlog(blog.id)
   }
 
   const removeHandler = event => {
     event.preventDefault()
-    /*
     window.confirm(`Are you sure you want to delete ${blog.title}`)
-      ? blogService
-        .remove(blog.id)
-        .then(() => {
-          setBlogs(blogs.filter(b => b.id !== blog.id))
-        })
+      ? removeBlog(blog.id)
       : console.log('canceled deletion')
-    */
+    
     }
 
   
@@ -78,4 +57,20 @@ const Blog = ({ blog }) => {
   )
 }
 
-export default Blog
+const mapStateToProps = (state) => {
+  return {
+    blogs: state.blogs
+  }
+}
+
+const mapDispatchToProps = {
+  likeBlog,
+  removeBlog
+}
+
+const ConnectedBlog = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Blog)
+
+export default ConnectedBlog
