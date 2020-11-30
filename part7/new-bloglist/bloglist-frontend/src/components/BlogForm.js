@@ -1,10 +1,11 @@
 import React,  { useState } from 'react'
 import { connect } from 'react-redux'
 import { showNotification } from '../reducers/notificationReducer'
+import { createBlog } from '../reducers/blogReducer'
 
 
 
-const BlogForm = ({ blogs, setBlogs, blogService, blogFormRef, showNotification } ) => {
+const BlogForm = ({ blogFormRef, showNotification, createBlog } ) => {
 
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
@@ -19,15 +20,11 @@ const BlogForm = ({ blogs, setBlogs, blogService, blogFormRef, showNotification 
           author: author,
           url: url,
         }
-    blogService
-      .create(newBlog)
-      .then(returnedBlog => {
-        setBlogs(blogs.concat(returnedBlog))
-        setTitle('')
-        setAuthor('')
-        setUrl('')
-        showNotification(`a new blog "${returnedBlog.title}" by ${returnedBlog.author} added`, 5)
-      })
+      createBlog(newBlog)
+      setTitle('')
+      setAuthor('')
+      setUrl('')
+      showNotification(`a new blog "${newBlog.title}" by ${newBlog.author} added`, 5)
   }
 
   return(
@@ -76,7 +73,8 @@ const mapStateToProps = () => {
 }
 
 const mapDispatchToProps = {
-  showNotification
+  showNotification,
+  createBlog
 }
 
 const ConnectedBlogForm = connect(
