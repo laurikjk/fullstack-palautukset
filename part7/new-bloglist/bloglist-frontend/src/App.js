@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux'
 import { initBlogs } from './reducers/blogReducer'
 
 const App = () => {
-  const [ blogs, setBlogs ] = useState([])
   const [ notification, setNotification ] = useState(null)
   const [ user, setUser ] = useState(null)
 
@@ -46,11 +45,8 @@ const App = () => {
         ref={blogFormRef}
       >
         <BlogForm
-          blogs={blogs}
-          setBlogs={setBlogs}
           notifyWith={notifyWith}
           setNotification={setNotification}
-          blogService={blogService}
           blogFormRef={blogFormRef}
         />
       </Togglable>
