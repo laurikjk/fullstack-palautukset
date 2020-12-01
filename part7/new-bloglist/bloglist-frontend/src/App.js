@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux'
 import { initBlogs } from './reducers/blogReducer'
 
 const App = () => {
-  const [ notification, setNotification ] = useState(null)
   const [ user, setUser ] = useState(null)
 
   const dispatch = useDispatch()
@@ -27,13 +26,6 @@ const App = () => {
     }
   }, [])
 
-  const notifyWith = (message, type='success') => {
-    setNotification({ message, type })
-    setTimeout(() => {
-      setNotification(null)
-    }, 5000)
-  }
-
   const blogFormRef = useRef()
 
   const blogForm = () => {
@@ -45,8 +37,6 @@ const App = () => {
         ref={blogFormRef}
       >
         <BlogForm
-          notifyWith={notifyWith}
-          setNotification={setNotification}
           blogFormRef={blogFormRef}
         />
       </Togglable>
@@ -56,13 +46,11 @@ const App = () => {
   if (user === null) {
     return(
       <div>
-        <Notification notification={notification}/>
+        <Notification />
 
         <LoginForm
           blogService={blogService}
           setUser={setUser}
-          notifyWith={notifyWith}
-          setNotification={setNotification}
         />
       </div>
     )
@@ -76,7 +64,7 @@ const App = () => {
         user={user}
       />
 
-      <Notification notification={notification} />
+      <Notification />
 
       {blogForm()}
 
