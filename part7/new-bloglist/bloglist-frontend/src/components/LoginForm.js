@@ -3,20 +3,16 @@ import { connect } from 'react-redux'
 import { showNotification } from '../reducers/notificationReducer'
 import { loginUser } from '../reducers/userReducer'
 
-const LoginForm = ({ blogService, setUser, showNotification, loginUser }) => {
+const LoginForm = ({ showNotification, loginUser }) => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    try {
       loginUser({ username, password })
       setUsername('')
       setPassword('')
-    } catch (exception) {
-      showNotification('wrong credentials', 5)
-    }
   }
 
   return(

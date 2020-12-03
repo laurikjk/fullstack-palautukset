@@ -28,7 +28,7 @@ export const loginUser = ({ username, password }) => {
         data: user
       })
     } catch (exception) {
-      showNotification('wrong credentials', 5)
+      dispatch(showNotification('wrong credentials', 5))
     }
     
   }
