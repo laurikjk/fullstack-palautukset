@@ -25,7 +25,7 @@ export const loginUser = ({ username, password }) => {
       )
       dispatch({
         type: 'LOGIN',
-        data: user
+        data: response //user as object
       })
     } catch (exception) {
       dispatch(showNotification('wrong credentials', 5))
@@ -36,8 +36,8 @@ export const loginUser = ({ username, password }) => {
 
 export const loggedIn = (user) => {
   return async dispatch => {
+    console.log('loggedinissä', user)
     blogService.setToken(user.token)
-    console.log('loggedinn user: ',user)
     dispatch({
       type: 'LOGIN',
       data: user

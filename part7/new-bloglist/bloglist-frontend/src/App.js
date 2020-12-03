@@ -11,6 +11,11 @@ import { initBlogs } from './reducers/blogReducer'
 import { loggedIn } from './reducers/userReducer'
 
 const App = () => {
+
+  const user = useSelector(state => {
+    return state.user
+  })
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(initBlogs())
@@ -41,9 +46,6 @@ const App = () => {
     )
   }
 
-  const user = useSelector(state => {
-    return state.user
-  })
 
   if (user === null) {
     return(
@@ -61,9 +63,7 @@ const App = () => {
 
   return (
     <div>
-      <LoggedIn
-        user={user}
-      />
+      <LoggedIn />
 
       <Notification />
 

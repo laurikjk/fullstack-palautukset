@@ -1,6 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-const LoggedIn = ({ user }) => {
+const LoggedIn = () => {
+
+  const user = useSelector(state => state.user)
 
   const handleLogout = event => {
     event.preventDefault()
