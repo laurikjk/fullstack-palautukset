@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Notification from './components/Notifcation'
 import BlogForm from './components/BlogForm'
 import LoggedIn from './components/LoggedIn'
@@ -6,25 +6,23 @@ import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
 import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { initBlogs } from './reducers/blogReducer'
+import { loggedIn } from './reducers/userReducer'
 
 const App = () => {
-  const [ user, setUser ] = useState(null)
-
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(initBlogs())
   }, [dispatch])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogListUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      blogService.setToken(user.token)
+      dispatch(loggedIn(user))
     }
-  }, [])
+  }, [dispatch])
 
   const blogFormRef = useRef()
 
@@ -43,6 +41,10 @@ const App = () => {
     )
   }
 
+  const user = useSelector(state => {
+    return state.user
+  })
+
   if (user === null) {
     return(
       <div>
@@ -50,7 +52,6 @@ const App = () => {
 
         <LoginForm
           blogService={blogService}
-          setUser={setUser}
         />
       </div>
     )
@@ -75,5 +76,6 @@ const App = () => {
     </div>
   )
 }
+
 
 export default App

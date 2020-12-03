@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import loginService from '../services/login'
 import { connect } from 'react-redux'
 import { showNotification } from '../reducers/notificationReducer'
+import { loginUser } from '../reducers/userReducer'
 
-const LoginForm = ({ blogService, setUser, showNotification }) => {
+const LoginForm = ({ blogService, setUser, showNotification, loginUser }) => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -11,16 +11,7 @@ const LoginForm = ({ blogService, setUser, showNotification }) => {
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
-      const user = await loginService.login({
-        username, password,
-      })
-
-      window.localStorage.setItem(
-        'loggedBloglistUser', JSON.stringify(user)
-      )
-
-      blogService.setToken(user.token)
-      setUser(user)
+      loginUser({ username, password })
       setUsername('')
       setPassword('')
     } catch (exception) {
@@ -62,7 +53,8 @@ const mapStateToProps = () => {
 }
 
 const mapDispatchToProps = {
-  showNotification
+  showNotification,
+  loginUser
 }
 
 const ConnectedLoginForm = connect(
