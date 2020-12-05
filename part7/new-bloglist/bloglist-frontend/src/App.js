@@ -3,12 +3,15 @@ import Notification from './components/Notifcation'
 import BlogForm from './components/BlogForm'
 import LoggedIn from './components/LoggedIn'
 import LoginForm from './components/LoginForm'
-import blogService from './services/blogs'
 import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
+import Users from './components/Users'
 import { useDispatch, useSelector } from 'react-redux'
 import { initBlogs } from './reducers/blogReducer'
 import { loggedIn } from './reducers/userReducer'
+import { initUsers } from './reducers/usersReducer'
+import { Route, Switch } from 'react-router-dom'
+
 
 const App = () => {
 
@@ -19,6 +22,10 @@ const App = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(initBlogs())
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(initUsers())
   }, [dispatch])
 
   useEffect(() => {
@@ -51,28 +58,30 @@ const App = () => {
     return(
       <div>
         <Notification />
-
-        <LoginForm
-          blogService={blogService}
-        />
+        <LoginForm />
       </div>
     )
   }
 
-  
-
   return (
     <div>
-      <LoggedIn />
 
-      <Notification />
-
-      {blogForm()}
-
-      <h2>blogs</h2>
-
-      <BlogList />
-
+    <LoggedIn />
+    <Switch>
+      <Route path="/users">
+        <div>
+          <Users />
+        </div>
+      </Route>
+      <Route path="/">
+        <div>
+          <Notification />
+          {blogForm()}
+          <h2>blogs</h2>
+          <BlogList />
+        </div>
+      </Route>
+    </Switch>
     </div>
   )
 }

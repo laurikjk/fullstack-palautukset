@@ -4,12 +4,12 @@ import { showNotification } from './notificationReducer'
 
 const reducer = (state=null, action) => {
   switch (action.type){
-    case 'LOGIN':
-      return action.data
-    case 'LOGOUT':
-      return null
-    default:
-      return state
+  case 'LOGIN':
+    return action.data
+  case 'LOGOUT':
+    return null
+  default:
+    return state
   }
 }
 
@@ -30,7 +30,6 @@ export const loginUser = ({ username, password }) => {
     } catch (exception) {
       dispatch(showNotification('wrong credentials', 5))
     }
-    
   }
 }
 
@@ -42,7 +41,6 @@ export const loggedIn = (user) => {
       type: 'LOGIN',
       data: user
     })
-    
   }
 }
 
