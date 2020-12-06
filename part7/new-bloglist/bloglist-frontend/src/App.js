@@ -81,7 +81,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className="container">
       <NavigationMenu />
       <Switch>
         <Route path="/users/:id">

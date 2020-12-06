@@ -2,28 +2,28 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { showNotification } from '../reducers/notificationReducer'
+import { Table } from 'react-bootstrap'
 
 const BlogList = (props) => {
-
-  const blogStyle = {
-    background: 'white',
-    border: 'solid',
-    borderWidth: 1,
-    color: 'black'
-  }
 
   const sortByLikes = (a, b) => {
     return b.likes - a.likes
   }
   const sortedBlogs = props.blogs.sort(sortByLikes)
 
-  return (sortedBlogs.map(blog =>
-    <div style={blogStyle} key={blog.id}>
-      <Link to={`/blogs/${blog.id}`}>
-        {blog.title}
-      </Link>
-    </div>
-    )
+  return (
+    <Table striped>
+      <tbody>
+        {sortedBlogs.map(blog =>
+        <tr key={blog.id}>
+          <td>
+            <Link to={`/blogs/${blog.id}`}>
+              {blog.title}
+            </Link>
+          </td>
+        </tr>)}
+      </tbody>
+    </Table>
   )
 }
 

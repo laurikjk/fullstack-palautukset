@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Button } from 'react-bootstrap'
 
 const LoggedIn = () => {
 
@@ -13,7 +14,7 @@ const LoggedIn = () => {
   return(
       <form onSubmit={handleLogout}>
         {user.name} logged in
-        <button type="submit">logout</button>
+        <Button type="submit">logout</Button>
       </form>
   )
 }
