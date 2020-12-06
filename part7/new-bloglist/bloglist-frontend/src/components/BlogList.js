@@ -1,5 +1,5 @@
 import React from 'react'
-import Blog from './Blog'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { showNotification } from '../reducers/notificationReducer'
 
@@ -19,10 +19,9 @@ const BlogList = (props) => {
 
   return (sortedBlogs.map(blog =>
     <div style={blogStyle} key={blog.id}>
-      <Blog
-        key={blog.id}
-        blog={blog}
-      />
+      <Link to={`/blogs/${blog.id}`}>
+        {blog.title}
+      </Link>
     </div>
     )
   )

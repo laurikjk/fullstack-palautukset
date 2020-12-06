@@ -7,6 +7,7 @@ import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
 import Users from './components/Users'
 import User from './components/User'
+import Blog from './components/Blog'
 import { useDispatch, useSelector } from 'react-redux'
 import { initBlogs } from './reducers/blogReducer'
 import { loggedIn } from './reducers/userReducer'
@@ -35,16 +36,21 @@ const App = () => {
 
   const user = useSelector(state => state.user)
   const users = useSelector(state => state.users)
+  const blogs = useSelector(state => state.blogs)
+  console.log('blogs ', blogs)
 
   const blogFormRef = useRef()
 
-  const match = useRouteMatch('/users/:id')
-  const matchedUser = match 
-    ? users.find(u =>  u.id === match.params.id)
+  const userMatch = useRouteMatch('/users/:id')
+  const matchedUser = userMatch 
+    ? users.find(u =>  u.id === userMatch.params.id)
     : null
 
+  const blogMatch = useRouteMatch('/blogs/:id')
+  const matchedBlog = blogMatch 
+    ? blogs.find(b => b.id === blogMatch.params.id)
+    : null
 
-    console.log('matcheduser: ', matchedUser)
 
   const blogForm = () => {
     return(
@@ -81,6 +87,9 @@ const App = () => {
           <div>
             <Users />
           </div>
+        </Route>
+        <Route path="/blogs/:id">
+          <Blog blog={matchedBlog} />
         </Route>
         <Route path="/">
           <div>
