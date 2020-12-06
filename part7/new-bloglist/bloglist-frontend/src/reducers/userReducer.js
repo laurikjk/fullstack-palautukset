@@ -18,7 +18,6 @@ export const loginUser = ({ username, password }) => {
     try {
       const response = await loginService.login({ username, password })
       const user = JSON.stringify(response)
-      console.log(user)
       blogService.setToken(user.token)
       window.localStorage.setItem(
         'loggedBlogListUser', user

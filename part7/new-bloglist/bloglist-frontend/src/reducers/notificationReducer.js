@@ -1,8 +1,5 @@
 
 const reducer = (state = { message: '', timer: null }, action) => {
-  console.log('notification state now: ', state)
-  console.log('notification action', action)
-
   switch (action.type) {
   case 'SHOW_NOTIFICATION':
     if (state.timer !== null) {
