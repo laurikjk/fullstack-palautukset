@@ -6,7 +6,6 @@ const Blog = ({ blog, likeBlog, removeBlog }) => {
 
   if(!blog) return null
 
-  console.log(blog)
 
   const likeHandler = (event) => {
     event.preventDefault()

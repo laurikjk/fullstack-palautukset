@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import Notification from './components/Notifcation'
 import BlogForm from './components/BlogForm'
-import LoggedIn from './components/LoggedIn'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
@@ -13,6 +12,7 @@ import { initBlogs } from './reducers/blogReducer'
 import { loggedIn } from './reducers/userReducer'
 import { initUsers } from './reducers/usersReducer'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
+import NavigationMenu from './components/NavigationMenu'
 
 
 const App = () => {
@@ -37,7 +37,6 @@ const App = () => {
   const user = useSelector(state => state.user)
   const users = useSelector(state => state.users)
   const blogs = useSelector(state => state.blogs)
-  console.log('blogs ', blogs)
 
   const blogFormRef = useRef()
 
@@ -78,7 +77,7 @@ const App = () => {
 
   return (
     <div>
-      <LoggedIn />
+      <NavigationMenu />
       <Switch>
         <Route path="/users/:id">
           <User user={matchedUser} />

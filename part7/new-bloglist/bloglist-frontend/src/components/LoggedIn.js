@@ -11,12 +11,10 @@ const LoggedIn = () => {
   }
 
   return(
-    <div>
       <form onSubmit={handleLogout}>
         {user.name} logged in
         <button type="submit">logout</button>
       </form>
-    </div>
   )
 }
 
