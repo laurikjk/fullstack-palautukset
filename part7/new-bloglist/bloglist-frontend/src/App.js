@@ -1,4 +1,8 @@
 import React, { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Route, Switch, useRouteMatch } from 'react-router-dom'
+
+// components
 import Notification from './components/Notifcation'
 import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
@@ -7,12 +11,13 @@ import BlogList from './components/BlogList'
 import Users from './components/Users'
 import User from './components/User'
 import Blog from './components/Blog'
-import { useDispatch, useSelector } from 'react-redux'
+import NavigationMenu from './components/NavigationMenu'
+
+// reducers
 import { initBlogs } from './reducers/blogReducer'
 import { loggedIn } from './reducers/userReducer'
 import { initUsers } from './reducers/usersReducer'
-import { Route, Switch, useRouteMatch } from 'react-router-dom'
-import NavigationMenu from './components/NavigationMenu'
+
 
 
 const App = () => {

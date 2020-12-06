@@ -38,6 +38,17 @@ const Blog = ({ blog, likeBlog, removeBlog }) => {
         <div>
         url: {blog.url}
         </div>
+
+        <div>
+        comments:
+        <ul>
+            {blog.comments.map(c =>
+            <li key={blog.comments.indexOf(c)}>
+              {c}
+            </li>
+            )}
+        </ul>
+        </div>
         <button onClick={removeHandler} id="remove-button">remove</button>
       </div>
     </div>

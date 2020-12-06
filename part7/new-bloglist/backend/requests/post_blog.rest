@@ -1,10 +1,10 @@
-POST http://localhost:3003/api/blogs HTTP/1.1
+POST http://localhost:3001/api/blogs HTTP/1.1
 Content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlN0cmluZyIsImlkIjoiNWZhN2M1NGI4OTMyYTQwZTUzYTNkOWQ2IiwiaWF0IjoxNjA1MDIxNTI2fQ.afYN0vEadLNvOrE1Gm1YNtoQE0OCkjZ6_1mJf737hNI
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMiIsImlkIjoiNWZiMTNkYzc3NzZmNGY1MjRmZGJjYzBjIiwiaWF0IjoxNjA3MjUzMjYxfQ.h3OzMTezxJJBBPSM9dbQZ3qN3LIgrOBDtgJ9dAu40Qw
 
 {
-    "title":"toimiiko env",
+    "title":"toimiiko 323423423env",
     "author":"author2",
     "url":"url2",
-    "likes":1
+    "likes":1,
 }

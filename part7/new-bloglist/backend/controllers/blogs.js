@@ -33,7 +33,8 @@ blogsRouter.post('/', async (request, response) => {
         "author": body.author,
         "url": body.url,
         "likes": body.likes,
-        "user": user
+        "user": user,
+        "comments": []
     })
 
     if(blog.likes === undefined) blog.likes = 0
@@ -70,6 +71,7 @@ blogsRouter.put('/:id', async (request, response) => {
         author: body.author,
         url: body.url,
         likes: body.likes,
+        comments: body.comments
     }
 
     const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
