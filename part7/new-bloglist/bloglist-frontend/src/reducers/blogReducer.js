@@ -22,6 +22,8 @@ const reducer = (state = [], action) => {
     const id2 = action.data
     const removed = state.filter(n => n.id !== id2)
     return removed
+  case 'COMMENT':
+    return action.data
   default:
     return state
   }
@@ -68,6 +70,20 @@ export const removeBlog = (id) => {
       data: id
     })
 
+  }
+}
+
+export const commentBlog = (id, comment) => {
+  return async dispatch => {
+    const before = await blogService.getOne(id)
+    const newComments = before.comments.concat(comment)
+    const commented = { ...before, comments: newComments}
+    await blogService.update(id, commented)
+    const newBlogs = await blogService.getAll()
+    dispatch({ 
+      type: 'COMMENT',
+      data: newBlogs
+    })
   }
 }
 

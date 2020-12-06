@@ -1,11 +1,12 @@
 import React from 'react'
-import { likeBlog, removeBlog } from '../reducers/blogReducer'
+import{ useState } from 'react'
+import { likeBlog, removeBlog, commentBlog } from '../reducers/blogReducer'
 import { connect } from 'react-redux'
 
-const Blog = ({ blog, likeBlog, removeBlog }) => {
+const Blog = ({ blog, likeBlog, removeBlog, commentBlog }) => {
+  const [comment, setComment] = useState('')
 
   if(!blog) return null
-
 
   const likeHandler = (event) => {
     event.preventDefault()
@@ -17,6 +18,12 @@ const Blog = ({ blog, likeBlog, removeBlog }) => {
     window.confirm(`Are you sure you want to delete ${blog.title}`)
       ? removeBlog(blog.id)
       : console.log('canceled deletion')
+  }
+
+  const handleComment = event => {
+    event.preventDefault()
+    commentBlog(blog.id, comment)
+    setComment('')
   }
 
   
@@ -37,6 +44,18 @@ const Blog = ({ blog, likeBlog, removeBlog }) => {
 
         <div>
         url: {blog.url}
+        </div>
+
+        <div>
+          add comment: 
+          <form onSubmit={handleComment} >
+            <input
+              type="text"
+              value={comment}
+              onChange={({ target }) => setComment(target.value)}
+            />
+            <button type="submit">submit</button>
+          </form>
         </div>
 
         <div>
@@ -62,7 +81,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   likeBlog,
-  removeBlog
+  removeBlog,
+  commentBlog
 }
 
 const ConnectedBlog = connect(
