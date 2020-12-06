@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Alert } from 'react-bootstrap'
 
 const Notification = () => {
   const notification = useSelector(state => state.notification)
@@ -14,8 +15,10 @@ const Notification = () => {
       borderWidth: 1
     }
   return (
-    <div style={style}>
-      {notification.message}
+    <div className="container">
+      <Alert>
+        {notification.message}  
+      </Alert>
     </div>
   )
 }
