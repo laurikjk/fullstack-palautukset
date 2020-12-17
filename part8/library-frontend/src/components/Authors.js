@@ -15,7 +15,6 @@ query {
 
 const Authors = (props) => {
   const authors = useQuery(ALL_AUTHORS)
-  console.log(authors)
   
   if (!props.show) {
     return null
