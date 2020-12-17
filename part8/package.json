@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "LauriKajakko",
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.19.0",
-    "graphql": "^15.4.0"
+    "graphql": "^15.4.0",
+    "uuid": "^8.3.2"
   }
 }
